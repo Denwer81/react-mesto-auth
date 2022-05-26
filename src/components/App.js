@@ -1,5 +1,8 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 import Header from './Header';
+import Login from './Login';
 import Main from './Main';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
@@ -7,7 +10,6 @@ import ChangeAvatar from './ChangeAvatarPopup';
 import AddCardPopup from './AddCardPopup';
 import DeleteCardPopup from './DeleteCardPopup';
 import ImagePopup from './ImagePopup';
-import CurrentUserContext from '../contexts/CurrentUserContext';
 import api from '../utils/Api';
 import { lockScroll, unlockScroll } from '../utils/scroll';
 
@@ -182,16 +184,40 @@ function App() {
       <div className="app">
 
         <div className="page__container">
+
           <Header />
-          <Main
-            initialCards={cards}
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            handleCardLike={handleCardLike}
-            handleDeleteCard={handleDeleteCard} />
+
+          <Route exact path="/">
+            <Main
+              initialCards={cards}
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              handleCardLike={handleCardLike}
+              handleDeleteCard={handleDeleteCard} />
+          </Route>
+
+          <Route path="/sing-up">
+            <div>
+              sign-up
+            </div>
+          </Route>
+
+          <Route path="/sing-in">
+            <Login
+              handleInputData={handleInputData}
+              inputData={inputData}
+              onSubmitForm={handleSubmitAddCardForm}
+              isLoading={isLoading}
+            />
+            <div>
+            </div>
+          </Route>
+
+
           <Footer />
+
         </div>
 
         <EditProfilePopup
