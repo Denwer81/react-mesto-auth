@@ -1,4 +1,4 @@
-.header__burger-btn {
+.burger-btn {
   display: none;
   width: 24px;
   height: 22px;
@@ -10,16 +10,6 @@
   transition: all .2s ease-in;
 }
 
-.header__burger-btn:hover {
+.burger-btn:hover {
   opacity: .6;
-}
-
-.header__burger-btn_burger-active {
-  display: block;
-}
-
-@media screen and (min-width: 768px) {
-  .header__burger-btn {
-    display: none;
-  }
 }

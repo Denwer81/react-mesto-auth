@@ -1,41 +1,22 @@
 .header__nav {
-  display: none;
+  display: flex;
   font-size: 18px;
   line-height: 22px;
   margin-right: 27px;
-  border-bottom: none;
 }
 
 @media screen and (min-width: 768px) {
   .header__nav {
-    display: flex;
     margin-right: 0;
-    border-bottom: none;
   }
 }
 
 .header__nav_burger-active {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 40px;
-  margin-right: 0;
-  margin-bottom: 27px;
-  border-bottom: 1px solid rgba(84,84,84,0.7);
+  display: none;
 }
 
 @media screen and (min-width: 768px) {
   .header__nav_burger-active {
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-right: 0;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
+    display: flex;
   }
-}
-
-.header__nav_burger-no-logged {
-  display: flex;
 }

@@ -6,9 +6,9 @@
   margin-bottom: 31px;
 }
 
-.header__container_burger-active {
+/* .header__container_burger-active {
   flex-direction: column-reverse;
-}
+} */
 
 @media screen and (min-width: 768px) {
   .header__container {

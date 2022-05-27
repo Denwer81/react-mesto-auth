@@ -226,9 +226,9 @@ function App() {
               isLoading={isLoading} />
           </Route>
 
-          <Route exact path="/">
+          {/* <Route exact path="/">
             {loggedIn ? <Redirect to="/" /> : <Redirect to="/snig-in" />}
-          </Route>
+          </Route> */}
 
           <Footer />
 
