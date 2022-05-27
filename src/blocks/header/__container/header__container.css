@@ -6,8 +6,13 @@
   margin-bottom: 31px;
 }
 
+.header__container_burger-active {
+  flex-direction: column-reverse;
+}
+
 @media screen and (min-width: 768px) {
   .header__container {
+    flex-direction: row;
     margin-top: 45px;
     margin-bottom: 41px;
   }

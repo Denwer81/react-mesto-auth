@@ -1,8 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Login from './Login';
+import Register from './Register';
 import Main from './Main';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
@@ -16,14 +17,15 @@ import { lockScroll, unlockScroll } from '../utils/scroll';
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [selectedCard, setSelectedCard] = React.useState({});
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
   const [isLoading, setIsLoading] = React.useState(false);
   const [inputData, setinputData] = React.useState({});
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
     api.getProfile()
@@ -33,7 +35,7 @@ function App() {
           description: userData.about,
           avatar: userData.avatar,
           id: userData._id
-        })
+        });
       })
       .catch(err => console.log(err));
   }, []);
@@ -71,22 +73,7 @@ function App() {
       .then((data) => {
         if (data) {
           setCards(cards => cards.filter(card => card.cardId !== selectedCard.cardId));
-        };
-        handleCloseAllPopup();
-      })
-      .catch(err => console.log(err))
-      .finally(() => {
-        setTimeout(() => {
-          setIsLoading(false);;
-        }, 300);
-      })
-  }
-
-  function handleSubmitEditForm(userName, userAbout) {
-    setIsLoading(true);
-    api.editProfile(userName, userAbout)
-      .then(data => {
-        setCurrentUser({ ...currentUser, name: data.name, description: data.about })
+        }
         handleCloseAllPopup();
       })
       .catch(err => console.log(err))
@@ -94,7 +81,22 @@ function App() {
         setTimeout(() => {
           setIsLoading(false);
         }, 300);
+      });
+  }
+
+  function handleSubmitEditForm(userName, userAbout) {
+    setIsLoading(true);
+    api.editProfile(userName, userAbout)
+      .then(data => {
+        setCurrentUser({ ...currentUser, name: data.name, description: data.about });
+        handleCloseAllPopup();
       })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 300);
+      });
   }
 
   function handleSubmitAvatarForm(link) {
@@ -109,7 +111,7 @@ function App() {
         setTimeout(() => {
           setIsLoading(false);
         }, 300);
-      })
+      });
   }
 
   function handleSubmitAddCardForm(name, link) {
@@ -132,7 +134,15 @@ function App() {
         setTimeout(() => {
           setIsLoading(false);
         }, 300);
-      })
+      });
+  }
+
+  function handleSubmitSnigUp(email, password) {
+    console.log(email, password);
+  }
+
+  function handleSubmitSnigIn(email, password) {
+    console.log(email, password);
   }
 
   function handleEditAvatarClick() {
@@ -177,7 +187,7 @@ function App() {
 
   function handleInputData(evt) {
     setinputData({ ...inputData, [evt.target.name]: evt.target.validationMessage });
-  };
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -185,7 +195,8 @@ function App() {
 
         <div className="page__container">
 
-          <Header />
+          <Header 
+            loggedIn={loggedIn} />
 
           <Route exact path="/">
             <Main
@@ -198,23 +209,26 @@ function App() {
               handleDeleteCard={handleDeleteCard} />
           </Route>
 
-          <Route path="/sing-up">
-            <div>
-              sign-up
-            </div>
+          <Route path="/snig-up">
+            <Register
+              handleInputData={handleInputData}
+              inputData={inputData}
+              onSubmitForm={handleSubmitSnigUp}
+              isLoading={isLoading} />
+            
           </Route>
 
-          <Route path="/sing-in">
+          <Route path="/snig-in">
             <Login
               handleInputData={handleInputData}
               inputData={inputData}
-              onSubmitForm={handleSubmitAddCardForm}
-              isLoading={isLoading}
-            />
-            <div>
-            </div>
+              onSubmitForm={handleSubmitSnigIn}
+              isLoading={isLoading} />
           </Route>
 
+          <Route exact path="/">
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/snig-in" />}
+          </Route>
 
           <Footer />
 

@@ -1,9 +1,5 @@
 .auth__link {
-  color:#ffffff;
-  text-decoration: none;
-  transition: all .2s ease-in;
-}
-
-.auth__link:hover {
-  opacity: .6;
+  align-self: center;
+  color: #fff;
+  margin-top: 15px; 
 }

@@ -1,9 +1,11 @@
-.auth__text {
+.header__text {
   margin-right: 0;
+  margin-bottom: 18px;
 }
 
 @media screen and (min-width: 768px) {
-  .auth__text {
+  .header__text {
     margin-right: 24px;
+    margin-bottom: 0;
   }
 }

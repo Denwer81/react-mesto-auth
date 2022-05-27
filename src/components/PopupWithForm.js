@@ -18,7 +18,7 @@ function PopupWithForm({ title, popupName, children, isOpen, closePopup, onSubmi
     setTimeout(() => {
       setIsValid(false);
     }, 300);
-  };
+  }
   
   UseCloseByEsc(isOpen, closePopup);
 

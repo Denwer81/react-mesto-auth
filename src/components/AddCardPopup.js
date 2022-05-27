@@ -8,7 +8,7 @@ function AddCardPopup({ isOpen, closePopup, onSubmitForm, isLoading, handleInput
   const inputUrl = React.useRef();
 
   function handleSubmitForm() {
-    onSubmitForm(inputPlace.current.value, inputUrl.current.value)
+    onSubmitForm(inputPlace.current.value, inputUrl.current.value);
   }
 
   React.useEffect(() => {
@@ -18,7 +18,7 @@ function AddCardPopup({ isOpen, closePopup, onSubmitForm, isLoading, handleInput
         inputUrl.current.value = '';
       }, 300);
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return (
     <PopupWithForm
