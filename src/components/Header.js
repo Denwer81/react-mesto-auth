@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import mainLogo from '../images/logo_main.svg';
 
-function Header({ loggedIn }) {
+function Header({ loggedIn, userEmail, handleSignOut }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   function handleBtnClick() {
@@ -11,16 +11,26 @@ function Header({ loggedIn }) {
   return (
     <header className="header">
       <nav className={`header__burger-menu ${isOpen && loggedIn ? 'header__burger-menu_active' : ''}`}>
-        <span className="header__text">ya@test.ru</span>
-        <NavLink exact to="/snig-in" className="header__link" activeClassName='header__link_active'>Выйти</NavLink>
+        <span className="header__text">{userEmail}</span>
+        <button className={`header__button ${loggedIn && 'header__button_active'}`} onClick={handleSignOut}>Выйти</button>
       </nav>
       <div className={`header__container ${loggedIn ? 'header__container_burger-active' : ''}`}>
         <img className="header__logo" src={mainLogo} alt="Логотип" />
         <nav className={`header__nav ${loggedIn ? 'header__nav_burger-active' : ''}`}>
-          <span className="header__text">ya@test.ru</span>
-          <NavLink to="/snig-up" className="header__link" activeClassName='header__link_active'>Регистрация</NavLink>
-          <NavLink to="/snig-in" className="header__link" activeClassName='header__link_active'>Войти</NavLink>
-          <NavLink exact to="/snig-in" className="header__link" activeClassName='header__link_active'>Выйти</NavLink>
+          <span className="header__text">{userEmail}</span>
+          <NavLink
+            to="/sign-in"
+            className={`header__link ${loggedIn && 'header__link_active'}`}
+            activeClassName='header__link_active'>
+            Войти
+          </NavLink>
+          <NavLink
+            to="/sign-up"
+            className={`header__link ${loggedIn && 'header__link_active'}`}
+            activeClassName='header__link_active'>
+            Регистрация
+          </NavLink>
+          <button className={`header__button ${loggedIn && 'header__button_active'}`} onClick={handleSignOut}>Выйти</button>
         </nav>
         <button
           className={`burger-btn ${loggedIn ? 'burger-btn_active' : ''}`}

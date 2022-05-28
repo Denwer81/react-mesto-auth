@@ -54,8 +54,8 @@ function AuthForm({ formName, title, onSubmitForm, handleInputData, inputData, i
           formName={formName}
           isValid={isValid}
           buttonText={formName === "register"
-            ? isLoading ? "Вход..." : "Войти"
-            : isLoading ? "Регистрация..." : "Регистрация"
+            ? isLoading ? "Регистрация..." : "Регистрация"
+            : isLoading ? "Вход..." : "Войти"
             } />
       </form>
     </div>

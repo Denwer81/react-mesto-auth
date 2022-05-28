@@ -12,7 +12,7 @@ function Register({ onSubmitForm, handleInputData, inputData, isLoading}) {
         inputData={inputData}
         onSubmitForm={onSubmitForm}
         isLoading={isLoading} />
-      <Link to="/snig-in" className="auth__link">Уже зарегистрированы? Войти</Link>
+      <Link to="/sign-in" className="auth__link">Уже зарегистрированы? Войти</Link>
     </>
   );
 }

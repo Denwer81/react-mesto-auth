@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Login from './Login';
@@ -10,8 +10,11 @@ import EditProfilePopup from './EditProfilePopup';
 import ChangeAvatar from './ChangeAvatarPopup';
 import AddCardPopup from './AddCardPopup';
 import DeleteCardPopup from './DeleteCardPopup';
+import InfoTooltip from './InfoTooltip';
 import ImagePopup from './ImagePopup';
 import api from '../utils/Api';
+import ProtectedRoute from './ProtectedRoute ';
+import { register, authorize, validateToken } from '../utils/auth';
 import { lockScroll, unlockScroll } from '../utils/scroll';
 
 function App() {
@@ -23,9 +26,14 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = React.useState(false);
+  const [isTooltipPopupOpen, setIsTooltipPopupOpen] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(false);
   const [inputData, setinputData] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isResponseOk, setIsResponseOk] = React.useState(false);
+  const [userEmail, setUserEmail] = React.useState('');
+  const history = useHistory();
 
   React.useEffect(() => {
     api.getProfile()
@@ -50,7 +58,7 @@ function App() {
             cardId: cardData._id,
             likes: cardData.likes,
             createByUserId: cardData.owner._id,
-          }
+          };
         });
         setCards(formattedCardData);
       })
@@ -137,12 +145,62 @@ function App() {
       });
   }
 
-  function handleSubmitSnigUp(email, password) {
-    console.log(email, password);
+  function handleSubmitSignUp(email, password) {
+    setIsLoading(true);
+    register(email, password)
+      .then(res => {
+        if (res) {
+          setIsResponseOk(true);
+          setIsTooltipPopupOpen(true);
+          history.push('/sign-in');
+        }
+      })
+      .catch(error => {
+        setErrorMessage(error);
+        setIsResponseOk(false);
+        setIsTooltipPopupOpen(true);
+      })
+      .finally(setIsLoading(false));
   }
 
-  function handleSubmitSnigIn(email, password) {
-    console.log(email, password);
+  function handleSubmitSignIn(email, password) {
+    setIsLoading(true);
+    authorize(email, password)
+      .then(res => {
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
+          tokenCheck();
+        }
+      })
+      .catch(error => {
+        setErrorMessage(error);
+        setIsTooltipPopupOpen(true);
+      })
+      .finally(setIsLoading(false));
+  }
+
+  function tokenCheck() {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+
+      validateToken(jwt)
+        .then(res => {
+          setLoggedIn(true);
+          setUserEmail(res.data.email);
+          history.push('/');
+        });
+    }
+  }
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  function handleSignOut() {
+    localStorage.removeItem('jwt');
+    setUserEmail('');
+    setLoggedIn(false);
+    history.push('/sign-in');
   }
 
   function handleEditAvatarClick() {
@@ -178,6 +236,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
+    setIsTooltipPopupOpen(false);
     setTimeout(() => {
       setSelectedCard({});
       setinputData({});
@@ -195,40 +254,40 @@ function App() {
 
         <div className="page__container">
 
-          <Header 
-            loggedIn={loggedIn} />
+          <Header
+            loggedIn={loggedIn}
+            userEmail={userEmail}
+            handleSignOut={handleSignOut} />
 
-          <Route exact path="/">
-            <Main
-              initialCards={cards}
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              handleCardLike={handleCardLike}
-              handleDeleteCard={handleDeleteCard} />
-          </Route>
+          <Switch>
+            <ProtectedRoute exact path="/" loggedIn={loggedIn}>
+              <Main
+                initialCards={cards}
+                onEditProfile={handleEditProfileClick}
+                onEditAvatar={handleEditAvatarClick}
+                onAddPlace={handleAddPlaceClick}
+                onCardClick={handleCardClick}
+                handleCardLike={handleCardLike}
+                handleDeleteCard={handleDeleteCard} />
+            </ProtectedRoute>
 
-          <Route path="/snig-up">
-            <Register
-              handleInputData={handleInputData}
-              inputData={inputData}
-              onSubmitForm={handleSubmitSnigUp}
-              isLoading={isLoading} />
-            
-          </Route>
+            <Route path="/sign-up">
+              <Register
+                handleInputData={handleInputData}
+                inputData={inputData}
+                onSubmitForm={handleSubmitSignUp}
+                isLoading={isLoading} />
 
-          <Route path="/snig-in">
-            <Login
-              handleInputData={handleInputData}
-              inputData={inputData}
-              onSubmitForm={handleSubmitSnigIn}
-              isLoading={isLoading} />
-          </Route>
+            </Route>
 
-          {/* <Route exact path="/">
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/snig-in" />}
-          </Route> */}
+            <Route path="/sign-in">
+              <Login
+                handleInputData={handleInputData}
+                inputData={inputData}
+                onSubmitForm={handleSubmitSignIn}
+                isLoading={isLoading} />
+            </Route>
+          </Switch>
 
           <Footer />
 
@@ -268,6 +327,12 @@ function App() {
           card={selectedCard}
           isOpen={isImagePopupOpen}
           closePopup={handleCloseAllPopup} />
+
+        <InfoTooltip
+          isOpen={isTooltipPopupOpen}
+          closePopup={handleCloseAllPopup}
+          errorMessage={errorMessage}
+          isResponseOk={isResponseOk} />
 
       </div>
     </CurrentUserContext.Provider>
