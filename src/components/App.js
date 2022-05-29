@@ -169,7 +169,9 @@ function App() {
       .then(res => {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
-          tokenCheck();
+          setLoggedIn(true);
+          setUserEmail(email);
+          history.push('/');
         }
       })
       .catch(error => {
@@ -179,7 +181,7 @@ function App() {
       .finally(setIsLoading(false));
   }
 
-  function tokenCheck() {
+  function checkToken() {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
 
@@ -193,7 +195,7 @@ function App() {
   }
 
   React.useEffect(() => {
-    tokenCheck();
+    checkToken();
   }, []);
 
   function handleSignOut() {
