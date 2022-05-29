@@ -1,9 +1,9 @@
 import ButtonClosePopup from "./ButtonClosePopup";
 import closeByOverlay from "../utils/closeByOverlay";
-import UseCloseByEsc from "../utils/UseCloseByEsc";
+import useCloseByEsc from "../hooks/useCloseByEsc";
 
 function InfoTooltip({ isOpen, closePopup, errorMessage, isResponseOk }) {
-  UseCloseByEsc(isOpen, closePopup);
+  useCloseByEsc(isOpen, closePopup);
 
   return (
     <div className={`popup popup_type_tooltip ${isOpen ? 'popup_opened' : ''}`}

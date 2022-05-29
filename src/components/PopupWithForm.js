@@ -1,7 +1,7 @@
 import React from 'react';
 import ButtonSubmitForm from './ButtonSubmitForm';
 import ButtonClosePopup from "./ButtonClosePopup";
-import UseCloseByEsc from '../utils/UseCloseByEsc';
+import useCloseByEsc from '../hooks/useCloseByEsc';
 import closeByOverlay from '../utils/closeByOverlay';
 
 function PopupWithForm({ title, popupName, children, isOpen, closePopup, onSubmitForm, isLoading }) {
@@ -20,7 +20,7 @@ function PopupWithForm({ title, popupName, children, isOpen, closePopup, onSubmi
     }, 300);
   }
   
-  UseCloseByEsc(isOpen, closePopup);
+  useCloseByEsc(isOpen, closePopup);
 
   return (
     <div className={`popup popup_type_${popupName} ${isOpen ? 'popup_opened' : ''}`}

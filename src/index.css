@@ -11,8 +11,6 @@
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__container/header__container.css);
 @import url(./blocks/header/__nav/header__nav.css);
-@import url(./blocks/header/__burger-menu/header__burger-menu.css);
-@import url(./blocks/header/__burger-menu/_active/header__burger-menu_active.css);
 @import url(./blocks/header/__text/header__text.css);
 @import url(./blocks/header/__link/header__link.css);
 @import url(./blocks/header/__link/_active/header__link_active.css);

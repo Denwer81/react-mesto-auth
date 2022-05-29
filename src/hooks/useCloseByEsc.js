@@ -1,6 +1,6 @@
 import React from "react";
 
-function UseCloseByEsc(isOpen, closePopup) {
+function useCloseByEsc(isOpen, closePopup) {
   React.useEffect(() => {
     function handleEscapeKey(evt) {
       if (evt.key === 'Escape') {
@@ -13,7 +13,7 @@ function UseCloseByEsc(isOpen, closePopup) {
         document.removeEventListener('keydown', handleEscapeKey);
       }
     }
-  }, [isOpen, closePopup])
+  }, [isOpen, closePopup]);
 }
 
-export default UseCloseByEsc;
+export default useCloseByEsc;
