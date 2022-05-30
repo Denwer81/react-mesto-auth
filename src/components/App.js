@@ -49,7 +49,8 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    api.getInitialCards()
+    if (loggedIn) {
+      api.getInitialCards()
       .then(cardsData => {
         const formattedCardData = cardsData.map(cardData => {
           return {
@@ -63,7 +64,8 @@ function App() {
         setCards(formattedCardData);
       })
       .catch(err => console.log(err));
-  }, []);
+    }
+  }, [loggedIn]);
 
   function handleCardLike(cardId, isLiked) {
     api.likesCard(cardId, isLiked)
