@@ -36,7 +36,8 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
-    api.getProfile()
+    if (loggedIn) { 
+      api.getProfile()
       .then((userData) => {
         setCurrentUser({
           name: userData.name,
@@ -46,7 +47,8 @@ function App() {
         });
       })
       .catch(err => console.log(err));
-  }, []);
+    }
+  }, [loggedIn]);
 
   React.useEffect(() => {
     if (loggedIn) {
