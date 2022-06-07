@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/Denwer81/react-mesto-auth/static/css/main.0d910289.css",
+    "main.js": "/Denwer81/react-mesto-auth/static/js/main.033c7c42.js",
+    "static/js/787.5530211c.chunk.js": "/Denwer81/react-mesto-auth/static/js/787.5530211c.chunk.js",
+    "static/media/Inter-Medium.woff": "/Denwer81/react-mesto-auth/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/Denwer81/react-mesto-auth/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "/Denwer81/react-mesto-auth/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "/Denwer81/react-mesto-auth/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/Denwer81/react-mesto-auth/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/Denwer81/react-mesto-auth/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/logo_main.svg": "/Denwer81/react-mesto-auth/static/media/logo_main.848975974dbb3eec9c9bab8143f89f9c.svg",
+    "index.html": "/Denwer81/react-mesto-auth/index.html",
+    "static/media/icon_res_not_ok.svg": "/Denwer81/react-mesto-auth/static/media/icon_res_not_ok.df8eddf661ff88f2d0ef.svg",
+    "static/media/icon_delete.svg": "/Denwer81/react-mesto-auth/static/media/icon_delete.823b0cf1b0b7e9cb7cad.svg",
+    "static/media/icon_res_ok.svg": "/Denwer81/react-mesto-auth/static/media/icon_res_ok.1b6082f862eac35e2514.svg",
+    "static/media/icon_heart.svg": "/Denwer81/react-mesto-auth/static/media/icon_heart.c783fa7a0eb2e210dd2d.svg",
+    "static/media/icon_heart_active.svg": "/Denwer81/react-mesto-auth/static/media/icon_heart_active.7d1e86040318b9040bd1.svg",
+    "static/media/icon_pen.svg": "/Denwer81/react-mesto-auth/static/media/icon_pen.a086f758840ae814ecde.svg",
+    "static/media/Edit_profile_button.svg": "/Denwer81/react-mesto-auth/static/media/Edit_profile_button.204bc56b294439be7082.svg",
+    "main.0d910289.css.map": "/Denwer81/react-mesto-auth/static/css/main.0d910289.css.map",
+    "main.033c7c42.js.map": "/Denwer81/react-mesto-auth/static/js/main.033c7c42.js.map",
+    "787.5530211c.chunk.js.map": "/Denwer81/react-mesto-auth/static/js/787.5530211c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0d910289.css",
+    "static/js/main.033c7c42.js"
+  ]
+}
