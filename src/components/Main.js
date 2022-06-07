@@ -14,7 +14,7 @@ function Main({ initialCards, onEditProfile, onAddPlace, onEditAvatar, onCardCli
           onClick={onEditAvatar}
           type="button"
           aria-label="аватар"
-          style={{ backgroundImage: `url(${currentUser.avatar})` }}>
+          style={{ backgroundImage: `url(${currentUser.avatar || ''})` }}>
         </button>
         <div className="profile__info">
           <h1 className="profile__user-name">{currentUser.name}</h1>
